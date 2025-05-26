@@ -1,8 +1,12 @@
+assets/external/
+.web
+.states
+*.db
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
-
+.web/
 # C extensions
 *.so
 
