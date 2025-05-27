@@ -550,15 +550,6 @@ wheels = [
 ]
 
 [[package]]
-name = "pyjwt"
-version = "2.9.0"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/fb/68/ce067f09fca4abeca8771fe667d89cc347d1e99da3e093112ac329c6020e/pyjwt-2.9.0.tar.gz", hash = "sha256:7e1e5b56cc735432a7369cbfa0efe50fa113ebecdc04ae6922deba8b84582d0c", size = 78825, upload-time = "2024-08-01T15:01:08.445Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/79/84/0fdf9b18ba31d69877bd39c9cd6052b47f3761e9910c15de788e519f079f/PyJWT-2.9.0-py3-none-any.whl", hash = "sha256:3b02fb0f44517787776cf48f2ae25d8e14f300e6d7545a4315cee571a415e850", size = 22344, upload-time = "2024-08-01T15:01:06.481Z" },
-]
-
-[[package]]
 name = "python-engineio"
 version = "4.12.1"
 source = { registry = "https://pypi.org/simple" }
@@ -638,20 +629,19 @@ wheels = [
 
 [[package]]
 name = "redis"
-version = "5.3.0"
+version = "6.1.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "async-timeout", marker = "python_full_version < '3.11.3'" },
-    { name = "pyjwt" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/71/dd/2b37032f4119dff2a2f9bbcaade03221b100ba26051bb96e275de3e5db7a/redis-5.3.0.tar.gz", hash = "sha256:8d69d2dde11a12dc85d0dbf5c45577a5af048e2456f7077d87ad35c1c81c310e", size = 4626288, upload-time = "2025-04-30T14:54:40.634Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/a6/af/e875d57383653e5d9065df8552de1deb7576b4d3cf3af90cde2e79ff7f65/redis-6.1.0.tar.gz", hash = "sha256:c928e267ad69d3069af28a9823a07726edf72c7e37764f43dc0123f37928c075", size = 4629300, upload-time = "2025-05-13T12:16:57.538Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/45/b0/aa601efe12180ba492b02e270554877e68467e66bda5d73e51eaa8ecc78a/redis-5.3.0-py3-none-any.whl", hash = "sha256:f1deeca1ea2ef25c1e4e46b07f4ea1275140526b1feea4c6459c0ec27a10ef83", size = 272836, upload-time = "2025-04-30T14:54:30.744Z" },
+    { url = "https://files.pythonhosted.org/packages/28/5f/cf36360f80ae233bd1836442f5127818cfcfc7b1846179b60b2e9a4c45c9/redis-6.1.0-py3-none-any.whl", hash = "sha256:3b72622f3d3a89df2a6041e82acd896b0e67d9f54e9bcd906d091d23ba5219f6", size = 273750, upload-time = "2025-05-13T12:16:55.661Z" },
 ]
 
 [[package]]
 name = "reflex"
-version = "0.7.12"
+version = "0.7.13"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "alembic" },
@@ -673,9 +663,9 @@ dependencies = [
     { name = "typing-extensions" },
     { name = "wrapt" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/ce/a3/655b75d50e33f871c51c7647750f3431cf5d4f4f4ad53ea9a77a6fb923a7/reflex-0.7.12.tar.gz", hash = "sha256:8571283ca205a0e4e04012c8eca0e31f17e47a6c2e20913cd4271292e8b118c9", size = 567947, upload-time = "2025-05-19T21:08:09.228Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/7d/70/480587f05064eebb89049f955154cb2ea422f03c6ca281bcda66ab720bbc/reflex-0.7.13.tar.gz", hash = "sha256:d703ed8b01814f9374694deb12214e294e96cb354cdff8508dc2727e301acb75", size = 573512, upload-time = "2025-05-26T19:00:33.882Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/49/ce/3aa53cfe48b310a3d18c22c3c9d4577b149250bdf1507ec66d78e4f6d79a/reflex-0.7.12-py3-none-any.whl", hash = "sha256:cc7ffebd0850b67f9ef4fd5cce94e19641d82e27349c80e754253fb06406c193", size = 862132, upload-time = "2025-05-19T21:08:07.413Z" },
+    { url = "https://files.pythonhosted.org/packages/06/c3/f53f2b17d16b1513abb10ad37a602c2be7bfcb583018abea202913f81e11/reflex-0.7.13-py3-none-any.whl", hash = "sha256:7691b812c8a3787d7fc4f83bcc5415546912b506f84f30447140f3dead30bc49", size = 870803, upload-time = "2025-05-26T19:00:31.677Z" },
 ]
 
 [[package]]
