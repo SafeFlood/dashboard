@@ -1,152 +1,73 @@
-# Dashboard
+# Welcome to Reflex!
 
-A simple Python project running inside Docker.
+This is the base Reflex template - installed when you run `reflex init`.
 
-## Prerequisites
-
-- [Docker](https://www.docker.com/get-started) (>= 20.10)
-- [Docker Compose](https://docs.docker.com/compose/install/)
-- `make` (optional, if you want to use the provided `Makefile`)
-
-## Available Commands
-
-All commands below assume you’re in the project root (`dashboard/`).
-
-### Using Python Package Manager
-
-#### Linux with Pip
+If you want to use a different template, pass the `--template` flag to `reflex init`.
+For example, if you want a more basic starting point, you can run:
 
 ```bash
-python -m venv .venv
-source .venv/bin/python
-pip install -r requirements.txt
-reflex run
-
+reflex init --template blank
 ```
 
-#### Windows with Pip
+## About this Template
+
+This template has the following directory structure:
 
 ```bash
-python -m venv .venv
-.\.venv\Scripts\activate
-pip install -r requirements.txt
-reflex run
-
+├── README.md
+├── assets
+├── rxconfig.py
+└── {your_app}
+    ├── __init__.py
+    ├── components
+    │   ├── __init__.py
+    │   ├── navbar.py
+    │   └── sidebar.py
+    ├── pages
+    │   ├── __init__.py
+    │   ├── about.py
+    │   ├── index.py
+    │   ├── profile.py
+    │   ├── settings.py
+    │   └── table.py
+    ├── styles.py
+    ├── templates
+    │   ├── __init__.py
+    │   └── template.py
+    └── {your_app}.py
 ```
 
-#### Linux/Windows with UV
+See the [Project Structure docs](https://reflex.dev/docs/getting-started/project-structure/) for more information on general Reflex project structure.
 
-```bash
-uv sync
-uv run reflex run
-```
+### Adding Pages
 
-### Build the Docker image
+In this template, the pages in your app are defined in `{your_app}/pages/`.
+Each page is a function that returns a Reflex component.
+For example, to edit this page you can modify `{your_app}/pages/index.py`.
+See the [pages docs](https://reflex.dev/docs/pages/routes/) for more information on pages.
 
-Using **Makefile**:
+In this template, instead of using `rx.add_page` or the `@rx.page` decorator,
+we use the `@template` decorator from `{your_app}/templates/template.py`.
 
-```sh
-make build
-```
+To add a new page:
 
-Or directly with Docker Compose:
+1. Add a new file in `{your_app}/pages/`. We recommend using one file per page, but you can also group pages in a single file.
+2. Add a new function with the `@template` decorator, which takes the same arguments as `@rx.page`.
+3. Import the page in your `{your_app}/pages/__init__.py` file and it will automatically be added to the app.
+4. Order the pages in `{your_app}/components/sidebar.py` and `{your_app}/components/navbar.py`.
 
-```sh
-docker-compose build
-```
 
-### Run the container
+### Adding Components
 
-Using **Makefile**:
+In order to keep your code organized, we recommend putting components that are
+used across multiple pages in the `{your_app}/components/` directory.
 
-```sh
-make run
-```
+In this template, we have a sidebar component in `{your_app}/components/sidebar.py`.
 
-Or directly with Docker Compose:
+### Adding State
 
-```sh
-docker-compose up -d --build --force-recreate
-```
+As your app grows, we recommend using [substates](https://reflex.dev/docs/substates/overview/)
+to organize your state.
 
-This will start the `safeflood` service and map port 8080 on your machine to port 8080 in the container.
-
-### View logs
-
-Using **Makefile**:
-
-```sh
-make logs
-```
-
-Or direct:
-
-```sh
-docker-compose logs -f
-```
-
-### Open a shell in the running container
-
-Using **Makefile**:
-
-```sh
-make shell
-```
-
-Or direct:
-
-```sh
-docker-compose exec safeflood /bin/bash
-```
-
-### Stop and remove containers
-
-Using **Makefile**:
-
-```sh
-make stop
-```
-
-Or direct:
-
-```sh
-docker-compose down
-```
-
-## Quick Test
-
-Once the container is up, you can verify it by running:
-
-```sh
-docker-compose exec safeflood python hello.py
-```
-
-You should see:
-
-```bash
-Hello from safeflood!
-```
-
-## Run Reflex
-
-```bash
-reflex run
-```
-
-or
-
-```bash
-make reflex-run
-```
-
-### Debug Mode
-
-```bash
-reflex run --loglevel debug
-```
-
-or
-
-```bash
-make reflex-run-debug
-```
+You can either define substates in their own files, or if the state is
+specific to a page, you can define it in the page file itself.
