@@ -19,7 +19,6 @@ from ..views.charts import (
     users_chart,
 )
 from ..views.stats_cards import stats_cards
-from .profile import ProfileState
 
 
 def _time_data() -> rx.Component:
@@ -54,7 +53,6 @@ def index() -> rx.Component:
 
     """
     return rx.vstack(
-        rx.heading(f"Welcome, {ProfileState.profile.name}", size="5"),
         rx.flex(
             rx.input(
                 rx.input.slot(rx.icon("search"), padding_left="0"),
