@@ -74,16 +74,13 @@ def sidebar_item(text: str, url: str) -> rx.Component:
     active = (rx.State.router.page.path == url.lower()) | (
         (rx.State.router.page.path == "/") & text == "Overview"
     )
-
+    print(text)
     return rx.link(
         rx.hstack(
             rx.match(
                 text,
                 ("Overview", sidebar_item_icon("home")),
-                ("Table", sidebar_item_icon("table-2")),
-                ("About", sidebar_item_icon("book-open")),
-                ("Profile", sidebar_item_icon("user")),
-                ("Settings", sidebar_item_icon("settings")),
+                ("FloodSense", sidebar_item_icon("waves")),
                 sidebar_item_icon("layout-dashboard"),
             ),
             rx.text(text, size="3", weight="regular"),
@@ -134,10 +131,7 @@ def sidebar() -> rx.Component:
 
     ordered_page_routes = [
         "/",
-        "/table",
-        "/about",
-        "/profile",
-        "/settings",
+        "/floodsense",
     ]
 
     pages = [
@@ -145,7 +139,7 @@ def sidebar() -> rx.Component:
         for page_list in DECORATED_PAGES.values()
         for _, page_dict in page_list
     ]
-
+    print(pages)
     ordered_pages = sorted(
         pages,
         key=lambda page: (
@@ -154,6 +148,7 @@ def sidebar() -> rx.Component:
             else len(ordered_page_routes)
         ),
     )
+    print(ordered_pages)
 
     return rx.flex(
         rx.vstack(
@@ -179,7 +174,7 @@ def sidebar() -> rx.Component:
         ),
         display=["none", "none", "none", "none", "none", "flex"],
         max_width=styles.sidebar_width,
-        width="auto",
+        width="20%",
         height="100%",
         position="sticky",
         justify="end",

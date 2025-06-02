@@ -30,10 +30,7 @@ def menu_item(text: str, url: str) -> rx.Component:
             rx.match(
                 text,
                 ("Overview", menu_item_icon("home")),
-                ("Table", menu_item_icon("table-2")),
-                ("About", menu_item_icon("book-open")),
-                ("Profile", menu_item_icon("user")),
-                ("Settings", menu_item_icon("settings")),
+                ("FloodSense", menu_item_icon("waves")),
                 menu_item_icon("layout-dashboard"),
             ),
             rx.text(text, size="4", weight="regular"),
@@ -108,10 +105,7 @@ def menu_button() -> rx.Component:
 
     ordered_page_routes = [
         "/",
-        "/table",
-        "/about",
-        "/profile",
-        "/settings",
+        "/floodsense",
     ]
 
     pages = [

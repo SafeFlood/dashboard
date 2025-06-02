@@ -37,7 +37,7 @@ def menu_item_link(text, href):
 class ThemeState(rx.State):
     """The state for the theme of the app."""
 
-    accent_color: str = "crimson"
+    accent_color: str = "teal"
 
     gray_color: str = "gray"
 
