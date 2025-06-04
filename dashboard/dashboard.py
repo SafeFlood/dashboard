@@ -9,7 +9,5 @@ from .pages import *
 # Create the app.
 app = rx.App(
     style=styles.base_style,
-    stylesheets=styles.base_stylesheets,
-    
-    
+    stylesheets=styles.base_stylesheets,   
 )
