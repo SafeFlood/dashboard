@@ -18,4 +18,4 @@ reflex-run:
 	reflex run
 
 reflex-run-debug:
-	reflex run --loglevel debug
+	reflex run --loglevel debug 
