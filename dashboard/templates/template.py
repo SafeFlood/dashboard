@@ -115,6 +115,7 @@ def template(
                     "row",
                 ],
                 width="100%",
+                # overflow_y="hidden",s
                 margin="auto",
                 position="relative",
             )

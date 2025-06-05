@@ -28,6 +28,75 @@ def map_area_placeholder() -> rx.Component:
         bg=rx.color('gray', 1) # Latar belakang sangat terang untuk area peta
     )
 
+# Komponen untuk form input prediksi
+def prediction_input_form() -> rx.Component:
+    return rx.vstack(
+        rx.heading("Form Prediksi Banjir", size="4", margin_bottom="0.5em", color_scheme="gray"),
+        
+        rx.text("Curah Hujan (mm):", size="2", margin_bottom="0.1em"),
+        rx.input(
+            value="",
+            # on_change=FloodPredictionState.handle_curah_hujan_change,
+            placeholder="e.g., 50.5",
+            width="100%",
+            step=0.1,
+            type="number",
+            min_=0,
+        ),
+        
+        rx.text("Ketinggian Air Sungai (cm):", size="2", margin_top="0.75em", margin_bottom="0.1em"),
+        rx.input(
+            value="",
+            # on_change=FloodPredictionState.handle_ketinggian_air_change,
+            placeholder="e.g., 120",
+            width="100%",
+            step=1,
+            type="number",
+            min_=0,
+        ),
+
+        rx.text("Durasi Hujan Terakhir (jam):", size="2", margin_top="0.75em", margin_bottom="0.1em"),
+        rx.input(
+            value="",
+            # on_change=FloodPredictionState.handle_durasi_hujan_change,
+            placeholder="e.g., 3",
+            width="100%",
+            step=0.5,
+            type="number",
+            min_=0,
+        ),
+        
+        rx.button(
+            "Prediksi Sekarang", 
+            # on_click="",
+            # is_loading=FloodPredictionState.is_processing,
+            width="100%", 
+            margin_top="1.5em",
+            margin_bottom="1.5em",
+            size="2",
+            color_scheme="blue"
+        ),
+
+        # Menampilkan hasil prediksi
+        # rx.cond(
+        #     # FloodPredictionState.hasil_prediksi != "",
+        #     rx.box(
+        #         rx.text("Hasil Prediksi:", weight="bold", size="3", margin_bottom="0.25em"),
+        #         rx.text("FloodPredictionState.hasil_prediksi", size="3"),
+        #         padding="1em",
+        #         margin_top="1em",
+        #         border=f"1px solid {rx.color('blue', 6)}",
+        #         border_radius="md",
+        #         width="100%",
+        #         bg=rx.color('blue', 2)
+        #     )
+        # ),
+        spacing="3",
+        width="100%",
+        align_items="stretch", # Memastikan semua elemen form merentang penuh
+        # margin_bottom="6em"
+    )
+
 @template(
     title="FloodSense",
     description="FloodSense is a web application that provides real-time flood monitoring and alerts.",
@@ -41,6 +110,7 @@ def floodsense():
             map_area_placeholder(),
             # Anda bisa menambahkan elemen lain di bawah peta jika perlu
             spacing="4",      # Jarak antar elemen di vstack ini
+            overflow_y="hidden",
             padding="1.5em",  # Padding di sekitar area peta
             align_items="stretch", # Membuat children (map_area_placeholder) merentang penuh
             width="70%",      # Proporsi lebar untuk area peta (sesuaikan jika perlu)
@@ -73,6 +143,11 @@ def floodsense():
             # Anda bisa menambahkan kontrol lain di sini
             # rx.button("Terapkan Filter", width="100%", margin_top="1.5em", size="2"),
 
+            rx.divider(margin_y="0.5em"), # Pemisah sebelum form prediksi
+
+            # Menambahkan form input prediksi di sini
+            prediction_input_form(),
+
             rx.spacer(), # Mendorong elemen berikutnya ke bawah jika ada
             
             # Contoh tambahan: Tombol aksi atau informasi
@@ -100,8 +175,8 @@ def floodsense():
         # Biasanya, template akan membuat konten halaman mengisi ruang yang tersedia.
         # Misalnya, bisa menggunakan min_height="calc(100vh - VAR_NAVBAR_HEIGHT)" jika navbar punya tinggi tetap.
         # Jika template Anda sudah menangani ini, maka tinggi 100% di sini akan relatif terhadap parentnya.
-        height="calc(100vh - 60px)" # Contoh: Asumsi tinggi navbar/header adalah 60px. Sesuaikan!
-                                    # Atau, jika template Anda adalah flex container yang mengisi viewport,
+        # height="calc(100vh - 60px)" # Contoh: Asumsi tinggi navbar/header adalah 60px. Sesuaikan!
+        height = "100%"                            # Atau, jika template Anda adalah flex container yang mengisi viewport,
                                     # Anda mungkin tidak perlu set tinggi eksplisit di sini.
                                     # Anda bisa coba tanpa ini dulu dan lihat bagaimana template menanganinya.
     )
