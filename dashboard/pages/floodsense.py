@@ -1,7 +1,8 @@
 import reflex as rx
 from ..templates import template
 from ..backend import FloodPredictionModel
-from ..components import map_with_circle_points
+
+from ..views.map_display import south_sulawesi_map_display
 model = FloodPredictionModel.get_instance()
 
 @template(
@@ -12,4 +13,4 @@ model = FloodPredictionModel.get_instance()
 )
 def floodsense():
 
-    return map_with_circle_points()
+    return south_sulawesi_map_display()

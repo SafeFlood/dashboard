@@ -3,8 +3,10 @@ class MapContainer(rx.NoSSRComponent):
     library = "react-leaflet"
     tag = "MapContainer"
     center: rx.Var[list]
-    zoom: rx.Var[int]
+    zoom: rx.Var[float]
     scroll_wheel_zoom: rx.Var[bool]
+    min_zoom: rx.Var[float] = 7.5
+    max_bounds: rx.Var[list] = None
 
     lib_dependencies: list[str] = [
         "react",
