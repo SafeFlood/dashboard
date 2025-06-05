@@ -1,5 +1,8 @@
 import reflex as rx
 from ..templates import template
+from ..backend import FloodPredictionModel
+
+model = FloodPredictionModel.get_instance()
 
 # Placeholder untuk komponen peta sebenarnya.
 # Anda bisa menggantinya dengan rx.html, rx.iframe untuk peta eksternal,
@@ -101,9 +104,10 @@ def prediction_input_form() -> rx.Component:
     title="FloodSense",
     description="FloodSense is a web application that provides real-time flood monitoring and alerts.",
     route="/floodsense",
-    
+    on_load=model.load_if_needed("../dashboard/dashboard/models/lstm_smote_cv.h5") 
 )
 def floodsense():
+<<<<<<< HEAD
     return rx.hstack(
         # 1. Area Konten Utama (untuk "Maps")
         rx.vstack(
@@ -180,3 +184,7 @@ def floodsense():
                                     # Anda mungkin tidak perlu set tinggi eksplisit di sini.
                                     # Anda bisa coba tanpa ini dulu dan lihat bagaimana template menanganinya.
     )
+=======
+
+    return f"Hello, FloodSense! {model.is_loaded}"
+>>>>>>> main
