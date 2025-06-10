@@ -2,6 +2,7 @@ import reflex as rx
 from ..templates import template
 from ..backend import FloodPredictionModel
 
+from ..views.map_display import south_sulawesi_map_display
 model = FloodPredictionModel.get_instance()
 
 @template(
@@ -12,4 +13,4 @@ model = FloodPredictionModel.get_instance()
 )
 def floodsense():
 
-    return f"Hello, FloodSense! {model.is_loaded}"
+    return south_sulawesi_map_display()
