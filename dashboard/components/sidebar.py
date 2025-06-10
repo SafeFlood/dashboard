@@ -15,8 +15,8 @@ def sidebar_header() -> rx.Component:
     return rx.hstack(
         # The logo.
         rx.color_mode_cond(
-            rx.image(src="/reflex_black.svg", height="1.5em"),
-            rx.image(src="/reflex_white.svg", height="1.5em"),
+            rx.image(src="/safe_flood_light.svg", height="2em"),
+            rx.image(src="/safe_flood_dark.svg", height="2em"),
         ),
         rx.spacer(),
         align="center",
@@ -34,19 +34,13 @@ def sidebar_footer() -> rx.Component:
 
     """
     return rx.hstack(
-        rx.link(
-            rx.text("Docs", size="3"),
-            href="https://reflex.dev/docs/getting-started/introduction/",
-            color_scheme="gray",
-            underline="none",
-        ),
-        rx.link(
-            rx.text("Blog", size="3"),
-            href="https://reflex.dev/blog/",
-            color_scheme="gray",
-            underline="none",
-        ),
         rx.spacer(),
+        rx.link(
+            rx.icon("github", size=18),
+            href="https://github.com/safeflood",
+            color_scheme="gray",
+            underline="none",
+        ),
         rx.color_mode.button(style={"opacity": "0.8", "scale": "0.95"}),
         justify="start",
         align="center",
@@ -148,7 +142,6 @@ def sidebar() -> rx.Component:
             else len(ordered_page_routes)
         ),
     )
-    
 
     return rx.flex(
         rx.vstack(

@@ -212,7 +212,7 @@ requires-dist = [
     { name = "python-dotenv", specifier = ">=1.1.0" },
     { name = "reflex", specifier = ">=0.7.12" },
     { name = "requests", specifier = ">=2.32.3" },
-    { name = "tensorflow", specifier = ">=2.19.0" },
+    { name = "tensorflow", specifier = ">=2.15.0" },
 ]
 
 [[package]]
