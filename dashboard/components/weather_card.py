@@ -25,6 +25,10 @@ def weathers_cards(
             rx.el.h3(
                 title,
                 class_name="text-sm font-medium text-gray-500",
+                color=rx.color_mode_cond(
+                    light="#6b7280",  # text-gray-500
+                    dark="#9ca3af"   # text-gray-400
+                )
             ),
             class_name="flex items-center mb-3",
         ),
@@ -33,23 +37,48 @@ def weathers_cards(
         rx.el.div(
             rx.el.span(
                 value,
-                class_name="text-3xl font-bold text-gray-900",
-                style={"font-family": "system-ui, -apple-system, sans-serif"},
+                class_name="text-3xl font-bold",
+                style={
+                    "font-family": "system-ui, -apple-system, sans-serif",
+                    "color": rx.color_mode_cond(
+                        light="#111827",  # text-gray-900
+                        dark="#ffffff"   # text-white
+                    )
+                },
             ),
             rx.el.span(
                 unit,
-                class_name="text-lg text-gray-700 ml-1",
+                class_name="text-lg ml-1",
+                color=rx.color_mode_cond(
+                    light="#374151",  # text-gray-700
+                    dark="#d1d5db"   # text-gray-300
+                )
             ),
             class_name="flex items-baseline mb-2",
+            
         ),
         
         # Subtitle
         rx.el.p(
             subtitle,
-            class_name="text-xs text-gray-400",
+            class_name="text-xs",
+            color=rx.color_mode_cond(
+                light="#9ca3af",  # text-gray-400
+                dark="#6b7280"   # text-gray-500
+            )
         ),
         
-        class_name="p-6 bg-white border border-gray-200 rounded-lg shadow-sm",
+        class_name="p-6 rounded-lg shadow-sm",
+        style={
+            "border": rx.color_mode_cond(
+                light="1px solid #e5e7eb",  # border-gray-200
+                dark="1px solid #374151"    # border-gray-700
+            ),
+            "background-color": rx.color_mode_cond(
+                light="#ffffff",  # bg-white
+                dark="#1f2937"    # bg-gray-800
+            )
+        }
     )
 
 
@@ -93,19 +122,41 @@ def weather_stats_cards() -> rx.Component:
             "📅",
         ),
         class_name="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6",
+        
     )
 
 def city_selector() -> rx.Component:
     """Selector untuk memilih kota."""
 
     return rx.hstack(
-        rx.text("Pilih Kota:", font_weight="medium", color="#2c3e50"),
+        rx.text(
+            "Pilih Kota:", 
+            font_weight="medium", 
+            color=rx.color_mode_cond(
+                light="#2c3e50",  # Warna gelap untuk light mode
+                dark="#e5e7eb"    # Warna terang untuk dark mode
+            )
+        ),
         rx.select(
             list(SULSEL_CITIES.keys()),
             value=WeatherState.selected_city,
             on_change=WeatherState.change_city,
             size="3",
             width="200px",
+            style={
+                "background_color": rx.color_mode_cond(
+                    light="white",
+                    dark="#374151"
+                ),
+                "border_color": rx.color_mode_cond(
+                    light="#d1d5db",
+                    dark="#4b5563"
+                ),
+                "color": rx.color_mode_cond(
+                    light="#111827",
+                    dark="#f9fafb"
+                )
+            }
         ),
         align="center",
         spacing="3",
