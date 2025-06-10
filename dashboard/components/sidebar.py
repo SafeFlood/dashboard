@@ -74,7 +74,7 @@ def sidebar_item(text: str, url: str) -> rx.Component:
     active = (rx.State.router.page.path == url.lower()) | (
         (rx.State.router.page.path == "/") & text == "Overview"
     )
-    print(text)
+    
     return rx.link(
         rx.hstack(
             rx.match(
@@ -139,7 +139,7 @@ def sidebar() -> rx.Component:
         for page_list in DECORATED_PAGES.values()
         for _, page_dict in page_list
     ]
-    print(pages)
+    
     ordered_pages = sorted(
         pages,
         key=lambda page: (
@@ -148,7 +148,7 @@ def sidebar() -> rx.Component:
             else len(ordered_page_routes)
         ),
     )
-    print(ordered_pages)
+    
 
     return rx.flex(
         rx.vstack(
