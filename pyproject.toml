@@ -10,6 +10,8 @@ dependencies = [
     "pytest-asyncio>=1.0.0",
     "reflex>=0.7.12",
     "tensorflow>=2.19.0",
+    "requests>=2.32.3",
+    "python-dotenv>=1.1.0",
 ]
 
 [tool.pytest.ini_options]
