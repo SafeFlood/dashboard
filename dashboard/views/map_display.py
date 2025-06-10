@@ -10,8 +10,7 @@ def south_sulawesi_map_display() -> rx.Component:
         "https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png",
         "https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png",
     )
-    return rx.hstack(
-        map_container(
+    return map_container(
             tile_layer(
                 url=raster_map_url,
                 attribution="&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors",
@@ -23,15 +22,4 @@ def south_sulawesi_map_display() -> rx.Component:
             height="100%",
             width="100%",
             border_radius="1em",
-        ),
-        rx.card(
-            "Hello",
-            padding="1em",
-            width="30%",
-            display="block",
-            margin="1px",
-            height="100%",
-        ),
-        width="100%",
-        height="100%",
-    )
+        )

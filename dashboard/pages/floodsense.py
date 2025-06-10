@@ -111,7 +111,7 @@ def floodsense():
     return rx.hstack(
         # 1. Area Konten Utama (untuk "Maps")
         rx.vstack(
-            map_area_placeholder(),
+            south_sulawesi_map_display(),
             # Anda bisa menambahkan elemen lain di bawah peta jika perlu
             spacing="4",      # Jarak antar elemen di vstack ini
             overflow_y="hidden",
