@@ -107,7 +107,6 @@ def prediction_input_form() -> rx.Component:
     on_load=model.load_if_needed("../dashboard/dashboard/models/lstm_smote_cv.h5") 
 )
 def floodsense():
-<<<<<<< HEAD
     return rx.hstack(
         # 1. Area Konten Utama (untuk "Maps")
         rx.vstack(
@@ -184,7 +183,3 @@ def floodsense():
                                     # Anda mungkin tidak perlu set tinggi eksplisit di sini.
                                     # Anda bisa coba tanpa ini dulu dan lihat bagaimana template menanganinya.
     )
-=======
-
-    return f"Hello, FloodSense! {model.is_loaded}"
->>>>>>> main
