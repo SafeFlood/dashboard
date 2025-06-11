@@ -15,8 +15,8 @@ def sidebar_header() -> rx.Component:
     return rx.hstack(
         # The logo.
         rx.color_mode_cond(
-            rx.image(src="/reflex_black.svg", height="1.5em"),
-            rx.image(src="/reflex_white.svg", height="1.5em"),
+            rx.image(src="/safe_flood_light.svg", height="2em"),
+            rx.image(src="/safe_flood_dark.svg", height="2em"),
         ),
         rx.spacer(),
         align="center",
@@ -34,19 +34,13 @@ def sidebar_footer() -> rx.Component:
 
     """
     return rx.hstack(
-        rx.link(
-            rx.text("Docs", size="3"),
-            href="https://reflex.dev/docs/getting-started/introduction/",
-            color_scheme="gray",
-            underline="none",
-        ),
-        rx.link(
-            rx.text("Blog", size="3"),
-            href="https://reflex.dev/blog/",
-            color_scheme="gray",
-            underline="none",
-        ),
         rx.spacer(),
+        rx.link(
+            rx.icon("github", size=18),
+            href="https://github.com/safeflood",
+            color_scheme="gray",
+            underline="none",
+        ),
         rx.color_mode.button(style={"opacity": "0.8", "scale": "0.95"}),
         justify="start",
         align="center",
@@ -74,7 +68,7 @@ def sidebar_item(text: str, url: str) -> rx.Component:
     active = (rx.State.router.page.path == url.lower()) | (
         (rx.State.router.page.path == "/") & text == "Overview"
     )
-    print(text)
+    
     return rx.link(
         rx.hstack(
             rx.match(
@@ -139,7 +133,7 @@ def sidebar() -> rx.Component:
         for page_list in DECORATED_PAGES.values()
         for _, page_dict in page_list
     ]
-    print(pages)
+    
     ordered_pages = sorted(
         pages,
         key=lambda page: (
@@ -148,7 +142,6 @@ def sidebar() -> rx.Component:
             else len(ordered_page_routes)
         ),
     )
-    print(ordered_pages)
 
     return rx.flex(
         rx.vstack(
