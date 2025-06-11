@@ -163,7 +163,6 @@ if __name__ == "__main__":
     
     # Test forecast data
     forecast_data = test_forecast_api("Makassar")
-    
     print(f"\n Summary:")
     print(f"Current weather: {'v' if current_data else 'x'}")
     print(f"Forecast data: {'v' if forecast_data else 'x'} ({len(forecast_data)} days)")
