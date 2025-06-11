@@ -2,6 +2,7 @@ import reflex as rx
 from ..templates import template
 from ..backend import FloodPredictionModel
 
+from ..views.map_display import south_sulawesi_map_display
 model = FloodPredictionModel.get_instance()
 
 # Placeholder untuk komponen peta sebenarnya.
@@ -110,7 +111,7 @@ def floodsense():
     return rx.hstack(
         # 1. Area Konten Utama (untuk "Maps")
         rx.vstack(
-            map_area_placeholder(),
+            south_sulawesi_map_display(),
             # Anda bisa menambahkan elemen lain di bawah peta jika perlu
             spacing="4",      # Jarak antar elemen di vstack ini
             overflow_y="hidden",
@@ -183,3 +184,6 @@ def floodsense():
                                     # Anda mungkin tidak perlu set tinggi eksplisit di sini.
                                     # Anda bisa coba tanpa ini dulu dan lihat bagaimana template menanganinya.
     )
+
+    return f"Hello, FloodSense! {model.is_loaded}"
+    return south_sulawesi_map_display()
