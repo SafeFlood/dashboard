@@ -7,7 +7,6 @@ import reflex as rx
 from typing import Optional, List
 
 
-
 class FloodPredictionModel:
     """Singleton model class that loads TensorFlow model only once."""
 
@@ -72,12 +71,12 @@ class FloodPredictionModel:
             self._model = None
             self._model_path = None
             raise RuntimeError(f"Failed to load model: {e}")
+
     def preprocess(self, input_data: List[float]) -> tf.Tensor:
         """Preprocess input data for model prediction."""
         if not self.is_loaded:
             raise RuntimeError("Model not loaded")
 
-        # Convert input data to tensor and reshape as needed
         input_tensor = tf.data.Dataset.from_tensor_slices(input_data)
         input_tensor = input_tensor.batch(self.batch_size)
         input_tensor = input_tensor.prefetch(tf.data.AUTOTUNE)
@@ -114,3 +113,39 @@ class FloodPredictionModel:
             "input_shape": self._model.input_shape,
             "output_shape": self._model.output_shape,
         }
+
+
+class MapState(rx.State):
+    markers: list[dict] = []
+    is_loading: bool = False
+    last_updated: str = ""
+
+    def add_marker(self, marker: dict) -> None:
+        """Add a marker to the map."""
+        self.markers.append(marker)
+        self.last_updated = rx.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    def clear_markers(self) -> None:
+        """Clear all markers from the map."""
+        self.markers = []
+        self.last_updated = rx.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    def set_loading(self, is_loading: bool) -> None:
+        """Set loading state for the map."""
+        self.is_loading = is_loading
+        if is_loading:
+            self.last_updated = rx.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    async def run_flood_prediction(self, input_data: List[float]) -> float:
+        """Run flood prediction using the model."""
+        
+        self.set_loading(True)
+        try:
+            model = FloodPredictionModel.get_instance()
+            if not model.is_loaded:
+                raise RuntimeError("Flood prediction model is not loaded")
+            prediction = model.predict(input_data)
+            return prediction
+        except Exception as e:
+            print(f"Error during flood prediction: {e}")
+            return -1.0

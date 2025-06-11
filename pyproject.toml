@@ -12,6 +12,7 @@ dependencies = [
     "tensorflow>=2.15.0",
     "requests>=2.32.3",
     "python-dotenv>=1.1.0",
+    "earthengine-api>=1.5.19",
 ]
 
 [tool.pytest.ini_options]
