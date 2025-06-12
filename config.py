@@ -17,6 +17,8 @@ if not API_KEY:
     )
 BASE_URL = "http://api.openweathermap.org/data/2.5"
 
+print("[DEBUG] OPENWEATHER_API_KEY =", API_KEY)
+
 
 # Koordinat kota-kota di Sulawesi Selatan
 SULSEL_CITIES: Dict[str, Dict[str, float]] = {
