@@ -3,7 +3,7 @@
 from pathlib import Path
 from threading import Lock
 import tensorflow as tf
-import reflex as rx
+
 from typing import Optional, List
 
 
@@ -77,9 +77,18 @@ class FloodPredictionModel:
         if not self.is_loaded:
             raise RuntimeError("Model not loaded")
 
-        input_tensor = tf.data.Dataset.from_tensor_slices(input_data)
-        input_tensor = input_tensor.batch(self.batch_size)
-        input_tensor = input_tensor.prefetch(tf.data.AUTOTUNE)
+        # input_tensor = tf.data.Dataset.from_tensor_slices(input_data)
+        # input_tensor = tf.expand_dims(input_tensor, axis=1)
+
+        # input_tensor = input_tensor.batch(self.batch_size)
+        # input_tensor = input_tensor.prefetch(tf.data.AUTOTUNE)
+        input_tensor = tf.convert_to_tensor(input_data, dtype=tf.float32)
+        if len(input_tensor.shape) == 1:
+            input_tensor = tf.expand_dims(input_tensor, axis=0)  # Add batch dimension
+    
+    # Add the middle dimension to match expected shape (batch_size, 1, features)
+        input_tensor = tf.expand_dims(input_tensor, axis=1)
+    
         return input_tensor
 
     def predict(self, input_data: List[float]) -> float:
@@ -91,7 +100,6 @@ class FloodPredictionModel:
             input_tensor = self.preprocess(input_data)
             prediction = self._model.predict(input_tensor, verbose=0)
             result = self.post_processor(prediction)
-            # Return single prediction value
             return result
 
         except Exception as e:
@@ -100,7 +108,7 @@ class FloodPredictionModel:
     def post_processor(self, result: tf.Tensor) -> float:
         """Post-process the prediction result."""
         class_id = tf.cast(tf.greater_equal(result, self.sigmoid_threshold), tf.int32)
-        return class_id
+        return class_id.numpy().flatten().tolist()
 
     def get_model_info(self) -> dict:
         """Get information about the loaded model."""
@@ -115,37 +123,3 @@ class FloodPredictionModel:
         }
 
 
-class MapState(rx.State):
-    markers: list[dict] = []
-    is_loading: bool = False
-    last_updated: str = ""
-
-    def add_marker(self, marker: dict) -> None:
-        """Add a marker to the map."""
-        self.markers.append(marker)
-        self.last_updated = rx.now().strftime("%Y-%m-%d %H:%M:%S")
-
-    def clear_markers(self) -> None:
-        """Clear all markers from the map."""
-        self.markers = []
-        self.last_updated = rx.now().strftime("%Y-%m-%d %H:%M:%S")
-
-    def set_loading(self, is_loading: bool) -> None:
-        """Set loading state for the map."""
-        self.is_loading = is_loading
-        if is_loading:
-            self.last_updated = rx.now().strftime("%Y-%m-%d %H:%M:%S")
-
-    async def run_flood_prediction(self, input_data: List[float]) -> float:
-        """Run flood prediction using the model."""
-        
-        self.set_loading(True)
-        try:
-            model = FloodPredictionModel.get_instance()
-            if not model.is_loaded:
-                raise RuntimeError("Flood prediction model is not loaded")
-            prediction = model.predict(input_data)
-            return prediction
-        except Exception as e:
-            print(f"Error during flood prediction: {e}")
-            return -1.0
