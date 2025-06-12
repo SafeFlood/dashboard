@@ -9,12 +9,19 @@ load_dotenv()
 API_KEY = os.getenv("OPENWEATHER_API_KEY")
 
 # Validasi API key
-if not API_KEY:
-    raise ValueError(
-        "OPENWEATHER_API_KEY tidak ditemukan! "
-        "Pastikan Anda sudah membuat file .env dan mengisi API key. "
-        "Contoh: OPENWEATHER_API_KEY=your_api_key_here"
-    )
+# if not API_KEY:
+#     raise ValueError(
+#         "OPENWEATHER_API_KEY tidak ditemukan! "
+#         "Pastikan Anda sudah membuat file .env dan mengisi API key. "
+#         "Contoh: OPENWEATHER_API_KEY=your_api_key_here"
+#     )
+
+# Hanya error jika sedang run app, bukan saat import oleh reflex export
+if __name__ == "__main__" or "RUN_MAIN" in os.environ:
+    if not API_KEY:
+        raise ValueError("OPENWEATHER_API_KEY tidak ditemukan!")
+    
+    
 BASE_URL = "http://api.openweathermap.org/data/2.5"
 
 print("[DEBUG] OPENWEATHER_API_KEY =", API_KEY)
