@@ -3,9 +3,8 @@
 from pathlib import Path
 from threading import Lock
 import tensorflow as tf
-import reflex as rx
-from typing import Optional, List
 
+from typing import Optional, List
 
 
 class FloodPredictionModel:
@@ -72,15 +71,24 @@ class FloodPredictionModel:
             self._model = None
             self._model_path = None
             raise RuntimeError(f"Failed to load model: {e}")
+
     def preprocess(self, input_data: List[float]) -> tf.Tensor:
         """Preprocess input data for model prediction."""
         if not self.is_loaded:
             raise RuntimeError("Model not loaded")
 
-        # Convert input data to tensor and reshape as needed
-        input_tensor = tf.data.Dataset.from_tensor_slices(input_data)
-        input_tensor = input_tensor.batch(self.batch_size)
-        input_tensor = input_tensor.prefetch(tf.data.AUTOTUNE)
+        # input_tensor = tf.data.Dataset.from_tensor_slices(input_data)
+        # input_tensor = tf.expand_dims(input_tensor, axis=1)
+
+        # input_tensor = input_tensor.batch(self.batch_size)
+        # input_tensor = input_tensor.prefetch(tf.data.AUTOTUNE)
+        input_tensor = tf.convert_to_tensor(input_data, dtype=tf.float32)
+        if len(input_tensor.shape) == 1:
+            input_tensor = tf.expand_dims(input_tensor, axis=0)  # Add batch dimension
+    
+    # Add the middle dimension to match expected shape (batch_size, 1, features)
+        input_tensor = tf.expand_dims(input_tensor, axis=1)
+    
         return input_tensor
 
     def predict(self, input_data: List[float]) -> float:
@@ -92,7 +100,6 @@ class FloodPredictionModel:
             input_tensor = self.preprocess(input_data)
             prediction = self._model.predict(input_tensor, verbose=0)
             result = self.post_processor(prediction)
-            # Return single prediction value
             return result
 
         except Exception as e:
@@ -101,7 +108,7 @@ class FloodPredictionModel:
     def post_processor(self, result: tf.Tensor) -> float:
         """Post-process the prediction result."""
         class_id = tf.cast(tf.greater_equal(result, self.sigmoid_threshold), tf.int32)
-        return class_id
+        return class_id.numpy().flatten().tolist()
 
     def get_model_info(self) -> dict:
         """Get information about the loaded model."""
@@ -114,3 +121,5 @@ class FloodPredictionModel:
             "input_shape": self._model.input_shape,
             "output_shape": self._model.output_shape,
         }
+
+

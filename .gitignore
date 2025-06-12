@@ -12,3 +12,4 @@ venv/
 uv.lock
 secret.yaml
 .env
+service-account.json

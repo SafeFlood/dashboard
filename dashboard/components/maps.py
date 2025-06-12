@@ -31,10 +31,31 @@ class CircleMarker(rx.NoSSRComponent):
     fill_color: rx.Var[str] = "blue"
     fill_opacity: rx.Var[float] = 0.6
     weight: rx.Var[int] = 1  
+
+class Polyline(rx.NoSSRComponent):
+    library = "react-leaflet"
+    tag = "Polyline"
+    positions: rx.Var[list]  # Single array of [lat, lng] coordinates
+    color: rx.Var[str] = "blue"
+    weight: rx.Var[int] = 3
+    opacity: rx.Var[float] = 1.0
+
+class MultiPolyline(rx.NoSSRComponent):
+    library = "react-leaflet"
+    tag = "MultiPolyline"
+    polylines: rx.Var[list]  
+    color: rx.Var[str] = "blue"
+    weight: rx.Var[int] = 3
+    opacity: rx.Var[float] = 1.0
+
+
+    
     
 map_container = MapContainer.create
 tile_layer = TileLayer.create
 circle_marker = CircleMarker.create
+polyline = Polyline.create
+multi_polyline = MultiPolyline.create
 
 def map_with_circle_points():
     return map_container(
