@@ -1,3 +1,9 @@
-from .flood_prediction import  FloodPredictionModel
-from .gee_data import gee_data_retriever
-__all__ = ["FloodPredictionModel", "gee_data_retriever"]
+from .flood_prediction import FloodPredictionModel
+from .inference import MapState, load_example_inference_data, get_ground_truth_targets
+
+__all__ = [
+    "FloodPredictionModel",
+    "MapState",
+    "load_example_inference_data",
+    "get_ground_truth_targets",
+]

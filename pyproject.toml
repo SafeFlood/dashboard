@@ -13,6 +13,9 @@ dependencies = [
     "requests>=2.32.3",
     "python-dotenv>=1.1.0",
     "earthengine-api>=1.5.19",
+    "pandas>=2.3.0",
+    "isort>=6.0.1",
+    "scikit-learn>=1.7.0",
 ]
 
 [tool.pytest.ini_options]

@@ -43,8 +43,8 @@ def responsive_two_column_layout(
             sidebar_content,
             width=sidebar_width,
             height="100%",
+            padding_left="0.5em",
             bg=sidebar_bg,
-            border_left=f"1px solid {rx.color('gray', 4)}" if sidebar_border else None,
         ),
         spacing=spacing,
         width="100%",
@@ -84,7 +84,7 @@ def responsive_two_column_layout(
 
 def map_display_area(
     map_component: rx.Component,
-    padding: str = "1.5em",
+    padding: str = "0.1em",
     mobile_padding: str = "1em",
 ) -> rx.Component:
     """
