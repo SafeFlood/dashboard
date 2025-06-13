@@ -14,7 +14,7 @@ model = FloodPredictionModel.get_instance()
     title="FloodSense",
     description="FloodSense is a web application that provides real-time flood monitoring and alerts.",
     route="/floodsense",
-    on_load=model.load_if_needed(f"{os.getcwd()/dashboard/models/lstm_smote_cv.h5}"),
+    on_load=model.load_if_needed(f"{os.getcwd()}/dashboard/models/lstm_smote_cv.h5"),
 )
 def floodsense():
     # Main map content
