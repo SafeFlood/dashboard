@@ -1,6 +1,7 @@
+from typing import  Optional
+import asyncio
 import reflex as rx
-from typing import List, Optional
-from ..backend import FloodPredictionModel, MapState, get_ground_truth_targets
+from ..backend import  MapState
 
 
 class FilterSidebarState(rx.State):
@@ -8,26 +9,27 @@ class FilterSidebarState(rx.State):
     progress_text: str = "Loading..."
     value: str = "target"
 
-    @rx.event
-    def change_loading_state(self, is_loading: bool):
-        self.is_loading = is_loading
+
 
     @rx.event
-    def show_marker(self, selected_value: str | list[str]):
-        self.change_loading_state(True)
+    async def show_marker(self, selected_value: str | list[str]):
+        self.is_loading = True
         if isinstance(selected_value, list):
             selected_value = selected_value[0] if selected_value else ""
         self.value = selected_value
         if selected_value == "target":
             print("Loading ground truth coordinates...")
             self.progress_text = "Loading Ground Truth Coordinates..."
-            
+            await asyncio.sleep(0.9)  # Simulate loading delay
+
         elif selected_value == "predict":
             print("Loading flood prediction coordinates...")
             self.progress_text = "Loading Flood Prediction Coordinates..."
             yield MapState.set_flood_prediction_coordinates
         print(f"Selected value: {self.value}")
-        self.change_loading_state(False)
+        self.progress_text = "Loading completed"
+        await asyncio.sleep(0.9)  # Simulate additional loading delay
+        self.is_loading = False
 
 
 def filter_sidebar(
